@@ -72,59 +72,63 @@ const hanldeSignIn = async (setIsSignedIn) => {
         updatedAt: dateNow
     }));
       console.log("New user just added to database.");
-    } else {   
-      get_response(results.user.uid);      
-      const userCurrent = cookies.get("user-info");
-      //console.log(userCurrent);
+    } else {
       const getDoctest = await getDoc(doc(database,"userInfor", auth.currentUser.uid));
-      //console.log(getDoctest.data());
+      console.log("infor sigin: ", getDoctest.data());
+      const userData = getDoctest.data();
+      if(userData.taskArr){
+        delete userData.taskArr;
+      }
+      cookies.set("user-info", JSON.stringify(userData));
       console.log("old user");
     }
   setIsSignedIn(true);   
 }
-export const get_response = async (uid) =>{
+export const getUserFromFireBase = async (uid) =>{
   const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
   const collection = "userInfor";
   const documentId = uid;
   const firestoreUrl = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/${collection}/${documentId}`;
-  try{
-    const uidToken = await auth.currentUser.getIdToken();
 
-    const response = await fetch(firestoreUrl, {
-        method: "GET",
-        headers: {
-            "Authorization": `Bearer ${uidToken}`,
-        },
-    });
-    const data = await response.json();
-    if(!data.fields){
-      console.error("No data.");
-    }
-
-    const extractField = (field) => {
-      if (field?.stringValue) return field.stringValue;
-      if (field?.integerValue) return Number(field.integerValue);
-      if (field?.arrayValue) return field.arrayValue.values.map(extractField);
-      if (field?.mapValue) return processFirestoreData(field.mapValue.fields);
-      return field; 
-    };
-
-    const processFirestoreData = (fields) => {
-      return Object.fromEntries(
-          Object.entries(fields).map(([key, value]) => [key, extractField(value)])
-      );
+  const extractField = (field) => {
+    if (field?.stringValue) return field.stringValue;
+    if (field?.integerValue) return Number(field.integerValue);
+    if (field?.arrayValue) return field.arrayValue.values.map(extractField);
+    if (field?.mapValue) return processFirestoreData(field.mapValue.fields);
+    return field; 
   };
 
-  const userData = processFirestoreData(data.fields);
-  console.log("🔥 Data has been processed:", userData);
-  cookies.set("user-info", userData);
+  const processFirestoreData = (fields) => {
+    return Object.fromEntries(
+        Object.entries(fields).map(([key, value]) => [key, extractField(value)])
+    );
+  };
+
+  try{
+  const uidToken = await auth.currentUser.getIdToken();
+
+  const response = await fetch(firestoreUrl, {
+      method: "GET",
+      headers: {
+          "Authorization": `Bearer ${uidToken}`,
+      },
+  });
+  var data = await response.json();
+  if(!data.fields){
+    console.error("No data.");
+  }
+
+  console.log("🔥 Data has been taken");
+  
   }
   catch (error){
     console.error("error when called API ", error);
+  } finally {
+    const userData = processFirestoreData(data.fields);
+    console.log(userData);
+    cookies.set("user-info", JSON.stringify(userData));
+    console.log("API called");
   }
-
-  
-
 };
  
 

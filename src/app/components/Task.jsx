@@ -9,12 +9,11 @@ import { database } from "../firebase-config";
 import "react-datepicker/dist/react-datepicker.css";
 
 const cookies = new Cookies();
-export default function Task({InputRef, task, setTask, setA_tasks}) {
+export default function Task({InputRef, task, setTask, A_tasks, setA_tasks}) {
 
     const [SDate, setSDate] = useState(new Date());
     let currentUser = cookies.get("user-info")
     const dateNow = new Date();
-    //console.log(currentUser);
     function Cancel() { 
         setTask("");
         InputRef.current.value = "";
@@ -32,11 +31,11 @@ export default function Task({InputRef, task, setTask, setA_tasks}) {
                 
             }
             let arr = [];
-            if(currentUser.taskArr) {
-                arr = currentUser.taskArr;
-                arr.push(taskJson);
+            if(A_tasks) {
+                arr = [...A_tasks, taskJson];
+                
             }else {
-                arr.push(taskJson);
+                arr = [taskJson];
             }
             await setDoc(doc(database, "userInfor",currentUser.uid), {
                 email: currentUser.email,
@@ -49,23 +48,23 @@ export default function Task({InputRef, task, setTask, setA_tasks}) {
             });
 
             taskJson.newTask = true;
-            
-            if(currentUser.hasOwnProperty("taskArr")){
-                currentUser = { ...currentUser, taskArr: [...currentUser.taskArr, taskJson] }; 
-                console.log("pushed successfully")
+            taskJson.Deadline = {seconds: SDate.getTime()/1000};
+            let arr1 = [];
+            if(A_tasks){
+                let arr2 = [...A_tasks, taskJson];
+                arr1 = arr2.sort((a,b) => a.Deadline.seconds - b.Deadline.seconds);
+                console.log("pushed successfully");
 
             }else{
-                currentUser.taskArr = [taskJson];
+                arr1 = [taskJson];
             }
-            console.log(currentUser);
-            cookies.set("user-info", JSON.stringify(currentUser));
+            console.log("This is arr tasks",arr1);
+            setA_tasks(arr1);
         } catch (error) {
             console.log("Error adding doc: ", error);
             alert("error: " + error.message);
             
         }
-        
-        
         setTask('');
         InputRef.current.value = "";
         console.log('submitted');
