@@ -1,28 +1,27 @@
+/* eslint-disable */
 "use client" // This is a client-side component
 import SideBar from "./components/SideBar";
 import React, {useState} from "react";
 import User from "./components/User";
-import { FcGoogle } from "react-icons/fc";
 import SignIn from "./components/SignIn";
 import Cookies from "universal-cookie";
 import AddTask from "./components/AddTask";
 
 
 const cookies = new Cookies
+
 export default function Home() {
   const [isSignedIn, setIsSignedIn] = useState(!!cookies.get("auth-token"));
   const [isUserOpen, setIsUserOpen] = useState(false);
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
   const [What, setWhat] = useState("Home");
+
   console.log( What );
   const rooms = ["User","AddTask", "Settings", "Logout"];
-
   const closeAll = () => { 
     setIsUserOpen(false);
     setIsAddTaskOpen(false);
-   }
-
-
+  }
   for (let i = 0; i < rooms.length; i++) {
     if (What === rooms[0] && !isUserOpen ) { // infinte loop here if I remove the isUserOpen condition
       closeAll();

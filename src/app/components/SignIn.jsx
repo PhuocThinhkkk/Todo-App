@@ -13,7 +13,6 @@ const cookies = new Cookies();
 
 
 export default function SignIn( {setWhat, setIsSignedIn}) { 
-
   return (    
   <div className="flex bg-white h-screen  text-green-500 font-bold text-4xl ">
       <SideBar setWhat = { setWhat }/>
@@ -42,46 +41,45 @@ export default function SignIn( {setWhat, setIsSignedIn}) {
 }
 
 const hanldeSignIn = async (setIsSignedIn) => { 
-    const results = await signInWithPopup(auth, provider);
-    const dateNow = new Date();
-    //console.log(dateNow);
-    const user = auth.currentUser;
-    cookies.set("auth-token", results.user.stsTokenManager.refreshToken);
-    if (!user) {
-      console.log("No user is signed in.");
-      return;
-    }
-    const creationTime = user.metadata.creationTime;
-    const lastSignInTime = user.metadata.lastSignInTime;
+  const results = await signInWithPopup(auth, provider);
+  const dateNow = new Date();
+  const user = auth.currentUser;
+  cookies.set("auth-token", results.user.stsTokenManager.refreshToken);
+  if (!user) {
+    console.log("No user is signed in.");
+    return;
+  }
+  const creationTime = user.metadata.creationTime;
+  const lastSignInTime = user.metadata.lastSignInTime;
 
-    if (creationTime === lastSignInTime) {
-      await setDoc(doc(database, "userInfor",results.user.uid), {
-        email: results.user.email,
-        photoURL: results.user.photoURL,
-        displayName: results.user.displayName,
-        uid : results.user.uid,
-        createdAt: dateNow,
-        updatedAt: dateNow
-      });
-      cookies.set("user-info", JSON.stringify({
-        email: results.user.email,
-        photoURL: results.user.photoURL,
-        displayName: results.user.displayName,
-        uid : results.user.uid,
-        createdAt: dateNow,
-        updatedAt: dateNow
-    }));
-      console.log("New user just added to database.");
-    } else {
-      const getDoctest = await getDoc(doc(database,"userInfor", auth.currentUser.uid));
-      console.log("infor sigin: ", getDoctest.data());
-      const userData = getDoctest.data();
-      if(userData.taskArr){
-        delete userData.taskArr;
-      }
-      cookies.set("user-info", JSON.stringify(userData));
-      console.log("old user");
+  if (creationTime === lastSignInTime) {
+    await setDoc(doc(database, "userInfor",results.user.uid), {
+      email: results.user.email,
+      photoURL: results.user.photoURL,
+      displayName: results.user.displayName,
+      uid : results.user.uid,
+      createdAt: dateNow,
+      updatedAt: dateNow
+    });
+    cookies.set("user-info", JSON.stringify({
+      email: results.user.email,
+      photoURL: results.user.photoURL,
+      displayName: results.user.displayName,
+      uid : results.user.uid,
+      createdAt: dateNow,
+      updatedAt: dateNow
+  }));
+    console.log("New user just added to database.");
+  } else {
+    const getDoctest = await getDoc(doc(database,"userInfor", auth.currentUser.uid));
+    console.log("infor sigin: ", getDoctest.data());
+    const userData = getDoctest.data();
+    if(userData.taskArr){
+      delete userData.taskArr;
     }
+    cookies.set("user-info", JSON.stringify(userData));
+    console.log("old user");
+  }
   setIsSignedIn(true);   
 }
 export const getUserFromFireBase = async (uid) =>{
@@ -100,7 +98,7 @@ export const getUserFromFireBase = async (uid) =>{
 
   const processFirestoreData = (fields) => {
     return Object.fromEntries(
-        Object.entries(fields).map(([key, value]) => [key, extractField(value)])
+      Object.entries(fields).map(([key, value]) => [key, extractField(value)])
     );
   };
 

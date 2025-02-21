@@ -9,10 +9,14 @@ import { database } from '../firebase-config';
 
 const cookies = new Cookies();
 export default function AddTask() {
-    const InputRef = useRef(null);
     const [task, setTask] = useState('');
     const [A_tasks, setA_tasks] = useState([]);
+    useEffect(() => {getData();}, []);
+    const InputRef = useRef(null);
     const currentUser = cookies.get("user-info");
+    if(A_tasks.length > 0){  
+        console.log("this is A_task: ",A_tasks);   
+    }
     
     const getData = async () => {
         const getDb = await getDoc(doc(database, "userInfor", currentUser.uid));
@@ -21,11 +25,6 @@ export default function AddTask() {
         setA_tasks(arr2);
         console.log("get db",arr2);
     }
-    useEffect(() => {getData();}, [])
-    if(A_tasks.length > 0){  
-        console.log("this is A_task: ",A_tasks);   
-    }
-    
     return (
         <div className='bg-cover bg-center bg-no-repeat w-full h-screen bg-gray-300'>
             <div className="flex flex-col justify-center items-center bg-cover bg-center bg-no-repeat w-full h-screen

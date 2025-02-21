@@ -10,9 +10,9 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const cookies = new Cookies();
 export default function Task({InputRef, task, setTask, A_tasks, setA_tasks}) {
-
-    const [SDate, setSDate] = useState(new Date());
-    let currentUser = cookies.get("user-info")
+    const inputRef = useRef(null);
+    const SDate = new Date();
+    let currentUser = cookies.get("user-info");
     const dateNow = new Date();
     function Cancel() { 
         setTask("");
@@ -70,7 +70,7 @@ export default function Task({InputRef, task, setTask, A_tasks, setA_tasks}) {
         console.log('submitted');
     }
     
-    const inputRef = useRef(null);
+  
     return (
         
         <div className="flex flex-col fixed inset-0 bg-white/70 backdrop-blur-sm items-center justify-center z-50 text-center w-screen h-screen">
