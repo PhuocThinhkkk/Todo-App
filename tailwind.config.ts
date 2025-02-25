@@ -1,8 +1,6 @@
 import type { Config } from "tailwindcss";
 
 export default {
-  mode : "jit", // Faster Just-in-time mode
-  puge: ["./src/**/*.{js,ts,jsx,tsx,mdx}"], // Use PurgeCSS to remove unused styles
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
