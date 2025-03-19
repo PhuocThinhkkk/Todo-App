@@ -9,13 +9,8 @@ import { useState } from "react";
 
 export default function SideBar( props ) {
   const { setWhat } = props;
-  const UserClicked = () => {
-    setWhat("User");
-  }
-  const AddTaskClicked = () => {
-    setWhat("AddTask");
-  }
   const [isOpen, setIsOpen] = useState(false);
+  
   const changeIsOpen = () => {
     setIsOpen(!isOpen);
   }
@@ -28,9 +23,9 @@ export default function SideBar( props ) {
       lg:translate-x-0 lg:static transition duration-700 ease-in-out`}>
         <div className="mt-14">
         </div>
-        <SideBarIcons Icon={<FaUserAlt/>} onClick={ UserClicked } />   
-        <SideBarIcons Icon={<IoIosAddCircle/>} onClick={ AddTaskClicked } />
-        <SideBarIcons Icon={<BsCheckCircle/>} />
+        <SideBarIcons Icon={<FaUserAlt/>} onClick={ () => setWhat("User") } />   
+        <SideBarIcons Icon={<IoIosAddCircle/>} onClick={ () => setWhat("AddTask") } />
+        <SideBarIcons Icon={<BsCheckCircle/>} onClick={() => setWhat("SuccessTask")}/>
         <SideBarIcons Icon={<GrSchedules/>} />
         <SideBarIcons Icon={<FiAlertTriangle/>} />
         <SideBarIcons Icon={<LiaAccessibleIcon />} />
@@ -41,7 +36,7 @@ export default function SideBar( props ) {
 };
 export const MenuBtn = ({isOpen, setIsOpen }) => {
   return (
-    <div onClick={setIsOpen } className={`lg:hidden flex items-center justify-center w-12 h-12 bg-gray-700 rounded-xl mb-4 cursor-pointer
+    <div onClick={setIsOpen } className={`lg:hidden flex itemAs-center justify-center w-12 h-12 bg-gray-700 rounded-xl mb-4 cursor-pointer
                 hover:bg-green-500 hover:text-gray-800
                 transition duration-500 ease-in-out fixed top-4 left-4 z-30
                 transform ${ isOpen ? 'rotate-90' : 'rotate-0' } `}>

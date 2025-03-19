@@ -83,8 +83,10 @@ export default function Task({InputRef, task, setTask, A_tasks, setA_tasks}) {
                 
                 <DatePicker selected={SDate} onChange={(date) => setSDate(date)} className="block w-48 text-gray-800 border-2 border-black-900 "/>
                 <div className="flex justify-end space-x-4">
-                    <button onClick={Cancel} className="w-20 h-10 bg-red-600 text-white rounded-lg mt-2 text-sm items-end ">Cancel </button>
-                    <button onClick={()=>{ handleSubmit(task, inputRef) }} className="w-20 h-10 bg-blue-500 text-white rounded-lg mt-2 text-sm items-end ">Add </button>
+                    <button onClick={Cancel} className="w-20 h-10 bg-red-600 text-white rounded-lg mt-2 text-sm items-end 
+                    hover:cursor-pointer hover:bg-red-800">Cancel </button>
+                    <button onClick={()=>{ handleSubmit(task, inputRef) }} className="w-20 h-10 bg-blue-500 text-white rounded-lg mt-2 text-sm items-end 
+                    hover:cursor-pointer hover:bg-blue-800">Add </button>
                 </div>
                 
                 

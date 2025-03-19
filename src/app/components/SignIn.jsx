@@ -30,7 +30,7 @@ export default function SignIn( {setWhat, setIsSignedIn}) {
             onClick={ () => hanldeSignIn(setIsSignedIn)  }
             className="bg-green-500 text-white px-4 py-2 rounded-lg
             hover:bg-green-600 transition-colors
-            duration-300 ease-linear"
+            duration-300 ease-linear hover:cursor-pointer"
           >
             Sign in
           </button>

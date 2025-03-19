@@ -6,6 +6,7 @@ import User from "./components/User";
 import SignIn from "./components/SignIn";
 import Cookies from "universal-cookie";
 import AddTask from "./components/AddTask";
+import SuccessTask from "./components/SuccessTask"
 
 
 const cookies = new Cookies
@@ -14,14 +15,17 @@ export default function Home() {
   const [isSignedIn, setIsSignedIn] = useState(!!cookies.get("auth-token"));
   const [isUserOpen, setIsUserOpen] = useState(false);
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
+  const [isSuccesTaskOpen, setIsSuccessTaskOpen] = useState(false);
   const [What, setWhat] = useState("Home");
 
   console.log( What );
-  const rooms = ["User","AddTask", "Settings", "Logout"];
+  const rooms = ["User","AddTask", "SuccessTask", "Settings", "Logout"];
   const closeAll = () => { 
     setIsUserOpen(false);
     setIsAddTaskOpen(false);
+    setIsSuccessTaskOpen(false);
   }
+
   for (let i = 0; i < rooms.length; i++) {
     if (What === rooms[0] && !isUserOpen ) { // infinte loop here if I remove the isUserOpen condition
       closeAll();
@@ -31,6 +35,11 @@ export default function Home() {
       closeAll();
       setIsAddTaskOpen(true);
       console.log("add task is open");
+    }
+    else if(What === rooms[2] && !isSuccesTaskOpen){
+      closeAll();
+      setIsSuccessTaskOpen(true);
+      console.log("success task component is open");
     }
   }
 
@@ -53,6 +62,14 @@ export default function Home() {
       <div className="flex bg-white h-screen  text-green-500 font-bold text-4xl ">
         <SideBar setWhat = { setWhat }/>
         <AddTask/>
+      </div>
+    );
+  }
+  if(isSuccesTaskOpen){
+    return (
+      <div className="flex bg-white h-screen  text-green-500 font-bold text-4xl ">
+        <SideBar setWhat = { setWhat }/>
+        <SuccessTask/>
       </div>
     );
   }
