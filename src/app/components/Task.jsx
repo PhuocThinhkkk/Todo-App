@@ -1,7 +1,7 @@
 
 import { useState, useRef, useEffect} from "react";
 import Cookies from "universal-cookie";
-import { setDoc, collection, serverTimestamp, doc } from "firebase/firestore";
+import { updateDoc, doc } from "firebase/firestore";
 import { database } from "../firebase-config";
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -44,13 +44,7 @@ export default function Task({InputRef, task, setTask, A_tasks, setA_tasks}) {
             }else {
                 arr = [taskJson];
             }
-            await setDoc(doc(database, "userInfor",currentUser.uid), {
-                email: currentUser.email,
-                photoURL: currentUser.photoURL,
-                displayName: currentUser.displayName,
-                uid : currentUser.uid,
-                createdAt: currentUser.createdAt,
-                updatedAt: currentUser.updatedAt,
+            await updateDoc(doc(database, "userInfor",currentUser.uid), {
                 taskArr : arr
             });
 
@@ -79,8 +73,7 @@ export default function Task({InputRef, task, setTask, A_tasks, setA_tasks}) {
 
 
     }
-    // <DatePicker selected={SDate} onChange={(date) => setSDate(date)} className="block w-48 text-gray-800 border-2 border-black-900 "/>
-    
+
     return (
         
         <div className="flex flex-col gap-y-1 fixed inset-0 bg-white/70 backdrop-blur-sm items-center justify-center z-50 text-center w-screen h-screen">

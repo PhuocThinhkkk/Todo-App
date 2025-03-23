@@ -36,7 +36,7 @@ export default function SideBar( props ) {
 };
 export const MenuBtn = ({isOpen, setIsOpen }) => {
   return (
-    <div onClick={setIsOpen } className={`lg:hidden flex itemAs-center justify-center w-12 h-12 bg-gray-700 rounded-xl mb-4 cursor-pointer
+    <div onClick={setIsOpen } className={`lg:hidden flex items-center justify-center w-12 h-12 bg-gray-700 rounded-xl mb-4 cursor-pointer
                 hover:bg-green-500 hover:text-gray-800
                 transition duration-500 ease-in-out fixed top-4 left-4 z-30
                 transform ${ isOpen ? 'rotate-90' : 'rotate-0' } `}>

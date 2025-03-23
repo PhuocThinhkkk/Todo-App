@@ -28,15 +28,13 @@ export default function AddTask() {
     
     
     return (
-        <div className='bg-cover bg-center bg-no-repeat w-full h-screen  bg-white '>
-            <div className="flex flex-col justify-center items-center bg-cover bg-center bg-no-repeat w-full h-screen
-            ">
-                <div className='flex justify-center items-center bg-white bg-opacity-50 p-3 rounded-lg shadow-lg w-3/4 h-12
-                fixed z-0 inset-0 left-1/2 top-10 transform -translate-x-1/2 -translate-y-1/2 '>
-                    <input type="text" className='text-sm w-full h-full px-1 outline-none' placeholder='Add a task' ref={ InputRef }/>
-                    <ButtonIcon Icon={<IoIosAddCircle/>} onClick={ ()=>{ setTask(InputRef.current.value) } }  />
-                </div>
-                
+        <div className=' w-full h-screen  bg-white '>
+            <div className=' flex justify-center items-center bg-white bg-opacity-50 p-3 rounded-lg shadow-lg w-3/4 h-12
+                fixed z-0 inset-0 left-1/2 lg:top-10 bottom-20 transform -translate-x-1/2 translate-y-1/2 '>
+                <input type="text" className='text-sm w-full h-full px-1 outline-none' placeholder='Add a task' ref={ InputRef }/>
+                <ButtonIcon Icon={<IoIosAddCircle/>} onClick={ ()=>{ setTask(InputRef.current.value) } }  />
+            </div>
+            <div className="flex flex-col justify-center items-center w-full h-screen">
                 <div className='flex flex-col gap-1 text-slate-950 bg-white bg-opacity-70 w-2/3 h-1/2 fixed top-1/2 left-1/2 z-0 
                 inset-0 rounded-sm -translate-x-1/2 -translate-y-1/4 overflow-y-scroll no-scrollbar '>
                     <TaskList A_tasks={A_tasks} setA_tasks={setA_tasks} currentUser={currentUser} />
@@ -85,7 +83,7 @@ const TaskList = ({ A_tasks, setA_tasks, currentUser }) => {
     const addSuccessTask = async (e) =>{
         const db = await getDoc(doc(database, "userInfor", currentUser.uid));
         const userdb = db.data();
-
+        console.log("userdb: ", userdb);
         let arr = userdb.taskArr;
         let arrSort = arr.sort((a,b) => a.Deadline.seconds - b.Deadline.seconds);
         const successTask = arrSort[e];
@@ -93,19 +91,21 @@ const TaskList = ({ A_tasks, setA_tasks, currentUser }) => {
         const newArr = arrSort;
 
         let successArr = [];
+
         if (userdb?.successTaskArr ) {
             for(let i = 0; i<userdb.successTaskArr.length; i++ ){
                 successArr[i] = userdb.successTaskArr[i];
+                console.log("hello", userdb.successTaskArr[i])
             }
         }
         successArr[successArr.length] = successTask;
-        console.log("successTask:", successTask);
-        console.log("successTask:", successArr.length);
+
+        console.log("successTask:", successArr);
 
         const DocRef = doc(database, "userInfor", currentUser.uid);
         await updateDoc(DocRef, {
             taskArr: newArr,
-            successTask: successArr
+            successTaskArr: successArr
         });
         console.log("add task successfully to successTask");
         setA_tasks(newArr);
