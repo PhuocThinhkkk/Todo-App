@@ -14,7 +14,6 @@ export default function AddTask() {
     const [task, setTask] = useState('');
     const [A_tasks, setA_tasks] = useState([]);
     useEffect(() => { 
-        console.log("use effect")
         const set_Tasks = async () =>{
             const taskdb = await getData(currentUser);
             setA_tasks(taskdb);
@@ -50,12 +49,9 @@ export default function AddTask() {
 
 }
 const getData = async (currentUser) => {
-    console.log(currentUser);
     const getDb = await getDoc(doc(database, "userInfor", currentUser.uid));
     let arr1 = getDb.data().taskArr;
     let arr2 = arr1.sort((a,b) => a.Deadline.seconds - b.Deadline.seconds);
-    
-    console.log("get db",arr2);
     return arr2;
 }
 
@@ -89,24 +85,29 @@ const TaskList = ({ A_tasks, setA_tasks, currentUser }) => {
     const addSuccessTask = async (e) =>{
         const db = await getDoc(doc(database, "userInfor", currentUser.uid));
         const userdb = db.data();
+
         let arr = userdb.taskArr;
         let arrSort = arr.sort((a,b) => a.Deadline.seconds - b.Deadline.seconds);
-        const successedTask = arrSort[e];
+        const successTask = arrSort[e];
         arrSort.splice(e, 1);
         const newArr = arrSort;
-        let successedArr = [];
-        if (userdb?.successedTaskArr ) {
-            for(let i = 0; i<userdb.successedTaskArr.length; i++ ){
-                successedArr[i] = userdb.successedTaskArr[i];
+
+        let successArr = [];
+        if (userdb?.successTaskArr ) {
+            for(let i = 0; i<userdb.successTaskArr.length; i++ ){
+                successArr[i] = userdb.successTaskArr[i];
             }
         }
-        successedArr[successedArr.length-1] = successedTask;
+        successArr[successArr.length] = successTask;
+        console.log("successTask:", successTask);
+        console.log("successTask:", successArr.length);
+
         const DocRef = doc(database, "userInfor", currentUser.uid);
         await updateDoc(DocRef, {
             taskArr: newArr,
-            successedTask: successedArr
+            successTask: successArr
         });
-        console.log("add task successfully to successedTask");
+        console.log("add task successfully to successTask");
         setA_tasks(newArr);
     }
 
@@ -117,7 +118,9 @@ const TaskList = ({ A_tasks, setA_tasks, currentUser }) => {
                 const DayAndMonth = `${timeObj.getDate()}/${timeObj.getMonth() + 1}`;
                 const thisDay = new Date();
                 let isDeadline = false;
-                if(thisDay.getMonth() > timeObj.getMonth() || ( thisDay.getMonth() === timeObj.getMonth() && thisDay.getDay() >= timeObj.getDay())) isDeadline = true;
+                if(thisDay.getMonth() > timeObj.getMonth() || ( thisDay.getMonth() === timeObj.getMonth() && thisDay.getDate() >= timeObj.getDate())) {
+                    isDeadline = true;
+                }
                 return (
                     <div key={index} className="flex items-center bg-white h-8 text-xs border-t border-y-neutral-500">
                         {isDeadline ? <SuccessBtn onClick={() => addSuccessTask(index)} /> : <div className='w-8'></div>}
