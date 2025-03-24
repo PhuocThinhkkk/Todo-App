@@ -76,7 +76,7 @@ export default function Home() {
   return (
     <div className="flex bg-white h-screen  text-green-500 font-bold text-4xl ">
       <SideBar  setWhat = { setWhat }/>
-      
+      <User></User>
     </div>
   );
 }

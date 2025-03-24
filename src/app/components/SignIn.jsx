@@ -7,36 +7,43 @@ import { signInWithPopup } from "firebase/auth";
 import  Cookies  from "universal-cookie";                 // use import default
 import { database }  from "../firebase-config.js";
 import { setDoc,  doc, getDoc, collection, query, where, getDocs } from "firebase/firestore";
-
+import Image from "next/image"
 
 const cookies = new Cookies();
 
 
 export default function SignIn( {setWhat, setIsSignedIn}) { 
   return (    
-  <div className="flex bg-white h-screen  text-green-500 font-bold text-4xl ">
-      <SideBar setWhat = { setWhat }/>
-      <User/>
-      <div className="flex flex-col fixed inset-0 bg-white/70 backdrop-blur-sm items-center justify-center z-50 text-center">
-        <div className="bg-white p-4 rounded-lg shadow-lg">
-          <p className="text-gray-500">You need to sign in to continue</p>
-          <div className="flex items-center justify-center space-x-4 m-10">
-            <span className="text-gray-500 text-4xl font-bold text-center">Sign in with Google</span>
-            <FcGoogle className="text-6xl" />
-          </div>
-          
-          <button
-
-            onClick={ () => hanldeSignIn(setIsSignedIn)  }
-            className="bg-green-500 text-white px-4 py-2 rounded-lg
-            hover:bg-green-600 transition-colors
-            duration-300 ease-linear hover:cursor-pointer"
-          >
-            Sign in
+  <main className="min-h-screen bg-white text-black flex items-center justify-center p-4 md:p-8">
+    <div className="max-w-6xl w-full flex flex-col md:flex-row items-center gap-8 md:gap-16 lg:gap-36  ">
+      {/* Left Content */}
+      <div className="">
+        <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6">Manage your tasks with My-todo</h1>
+        <p className="text-lg text-gray-700 mb-4">
+        Stay organized and boost your productivity with ease. Manage your tasks, set reminders, and achieve your goals—one step at a time.
+        </p>
+        <p className="mb-4 text-xl font-bold"> Sign in with Google </p>
+        <div className="flex flex-wrap gap-4">
+          <button className="w-32 h-11 rounded-xl font-extrabold duration-300 bg-green-600 cursor-pointer hover:bg-green-700" 
+          onClick={()=>hanldeSignIn(setIsSignedIn)}>
+            Sign In
           </button>
         </div>
       </div>
+
+
+      <div className="w-full md:w-1/2 flex justify-center">
+        <Image
+          src="../../to-do-list-img.png"
+          alt="to do list img"
+          width={500}
+          height={500}
+          priority
+          className="max-w-full h-full  "
+        />
+      </div>
     </div>
+  </main> 
   );
 }
 
