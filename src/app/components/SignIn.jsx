@@ -14,8 +14,8 @@ const cookies = new Cookies();
 
 export default function SignIn( {setWhat, setIsSignedIn}) { 
   return (    
-  <main className="min-h-screen bg-white text-black flex items-center justify-center p-4 md:p-8">
-    <div className="max-w-6xl w-full flex flex-col md:flex-row items-center gap-8 md:gap-16 lg:gap-36  ">
+  <div className="full min-h-screen bg-white text-black flex items-center justify-center p-4 md:p-8">
+    <div className="max-w-6xl  w-full flex flex-col md:flex-row items-center gap-8 md:gap-16 lg:gap-36  ">
       {/* Left Content */}
       <div className="">
         <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6">Manage your tasks with My-todo</h1>
@@ -34,7 +34,7 @@ export default function SignIn( {setWhat, setIsSignedIn}) {
 
       <div className="w-full md:w-1/2 flex justify-center">
         <Image
-          src="../../to-do-list-img.png"
+          src="../img/to-do-list-img.png"
           alt="to do list img"
           width={500}
           height={500}
@@ -43,7 +43,7 @@ export default function SignIn( {setWhat, setIsSignedIn}) {
         />
       </div>
     </div>
-  </main> 
+  </div> 
   );
 }
 
