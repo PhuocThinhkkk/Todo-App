@@ -9,7 +9,8 @@ const nextConfig: NextConfig = {
   // assetPrefix: "/Todo-App/",
   distDir: "dist", 
   images: {
-    unoptimized: true, // Hỗ trợ ảnh trên GitHub Pages
+    loader: 'custom',
+    loaderFile: './ImageLoader.js'
   },
   reactStrictMode: false, // Tắt Strict Mode
 };
