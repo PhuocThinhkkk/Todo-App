@@ -1,7 +1,4 @@
-import { FcGoogle } from "react-icons/fc";
-import { useState } from "react";
-import SideBar from "./SideBar";
-import User from "./User";
+
 import { auth, provider } from "../firebase-config.js";
 import { signInWithPopup } from "firebase/auth";
 import  Cookies  from "universal-cookie";                 // use import default
@@ -34,7 +31,7 @@ export default function SignIn( {setWhat, setIsSignedIn}) {
 
       <div className="w-full md:w-1/2 flex justify-center">
         <Image
-          src="../img/to-do-list-img.png"
+          src="/to-do-list-img.png"
           alt="to do list img"
           width={500}
           height={500}
