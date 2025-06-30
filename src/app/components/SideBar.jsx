@@ -6,31 +6,37 @@ import { IoIosAddCircle } from "react-icons/io";
 import { FaUserAlt } from "react-icons/fa";
 import { HiMenu } from "react-icons/hi";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-export default function SideBar( props ) {
-  const { setWhat } = props;
+export default function SideBar( ) {
+  const route = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  
   const changeIsOpen = () => {
     setIsOpen(!isOpen);
   }
   
   return (
     <>
-    <MenuBtn isOpen={isOpen} setIsOpen={changeIsOpen}/>
-    <div className={`flex flex-col w-36 h-screen bg-gray-800 text-white p-4 fixed top-0 left-0 z-10
-     transform ${ isOpen ? 'translate-x-0' : '-translate-x-full' } 
-      lg:translate-x-0 lg:static transition duration-700 ease-in-out`}>
-        <div className="mt-14">
-        </div>
-        <SideBarIcons Icon={<FaUserAlt/>} onClick={ () => setWhat("User") } />   
-        <SideBarIcons Icon={<IoIosAddCircle/>} onClick={ () => setWhat("AddTask") } />
-        <SideBarIcons Icon={<BsCheckCircle/>} onClick={() => setWhat("SuccessTask")}/>
-        <SideBarIcons Icon={<GrSchedules/>} />
-        <SideBarIcons Icon={<FiAlertTriangle/>} />
-        <SideBarIcons Icon={<LiaAccessibleIcon />} />
-    </div>
+    <main className="fixed top-0 left-0">
+      <div className="text-4xl">
+      <MenuBtn isOpen={isOpen} setIsOpen={changeIsOpen}/>
+      <div className={`flex flex-col w-36 h-screen bg-gray-800 text-white p-4 fixed top-0 left-0 z-10
+      transform ${ isOpen ? 'translate-x-0' : '-translate-x-full' } 
+        lg:translate-x-0 lg:static transition duration-700 ease-in-out`}>
+          <div className="mt-14">
+          </div>
+          <SideBarIcons Icon={<FaUserAlt/>} onClick={ () => route.push("/user")} />   
+          <SideBarIcons Icon={<IoIosAddCircle/>} onClick={ () => route.push("/add-task")} />
+          <SideBarIcons Icon={<BsCheckCircle/>} onClick={ () => route.push("/success-task")} />
+          <SideBarIcons Icon={<GrSchedules/>} />
+          <SideBarIcons Icon={<FiAlertTriangle/>} />
+          <SideBarIcons Icon={<LiaAccessibleIcon onClick={() => route.push("/dashboard")}/>} />
+      </div>
+      </div>
+    </main>
     </>
+    
+    
     
   );
 };

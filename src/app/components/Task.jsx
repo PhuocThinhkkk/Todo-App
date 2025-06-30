@@ -64,21 +64,17 @@ export default function Task({InputRef, task, setTask, A_tasks, setA_tasks}) {
         } catch (error) {
             console.log("Error adding doc: ", error);
             alert("error: " + error.message);
-            
         }
         setTask('');
         InputRef.current.value = "";
         console.log('submitted');
-
-
-
     }
 
     return (
         
-        <div className="flex flex-col gap-y-1 fixed inset-0 bg-white/70 backdrop-blur-sm items-center justify-center z-50 text-center w-screen h-screen">
+        <div className="font-bold font-sans flex flex-col gap-y-1 fixed inset-0 bg-white/70 backdrop-blur-sm items-center justify-center z-50 text-center w-screen h-screen">
             
-            <div className="flex flex-col gap-y-4 bg-white p-4 rounded-lg shadow-lg w-3/4 lg:w-1/2 h-2/5 border-2 border-green-500">
+            <div className="text-2xl flex flex-col gap-y-4 bg-white p-4 rounded-lg shadow-lg w-3/4 lg:w-1/2 h-2/5 border-2 border-green-500">
                 <p className=" text-gray-800 overflow-hidden">{task}</p>
                 
                 

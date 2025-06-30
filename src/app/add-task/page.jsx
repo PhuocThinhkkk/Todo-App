@@ -1,13 +1,14 @@
-
+"use client"
 import { IoIosAddCircle } from 'react-icons/io';
 import { useRef, useState, useEffect, use } from 'react';
-import Task from './Task';
+import Task from '../components/Task';
 import Cookies from 'universal-cookie';
 
-import { setDoc,  doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { database } from '../firebase-config';
 import { MdDelete } from "react-icons/md";
 import { IoCheckbox } from "react-icons/io5";
+import SideBar from '../components/SideBar';
 
 const cookies = new Cookies();
 export default function AddTask() {
@@ -26,12 +27,13 @@ export default function AddTask() {
         console.log("this is A_task: ",A_tasks);   
     }
     
-    
     return (
-        <div className=' w-full h-screen  bg-white '>
-            <div className=' flex justify-center items-center bg-white bg-opacity-50 p-3 rounded-lg shadow-lg w-3/4 h-12
+        <>
+        <SideBar></SideBar>
+        <div className=' w-full h-screen  bg-white font-bold'>
+            <div className=' flex justify-center items-center bg-amber-50 text-black bg-opacity-50 p-3 rounded-lg shadow-lg w-3/4 h-12
                 fixed z-0 inset-0 left-1/2 lg:top-10 bottom-20 transform -translate-x-1/2 translate-y-1/2 '>
-                <input type="text" className='text-sm w-full h-full px-1 outline-none' placeholder='Add a task' ref={ InputRef }/>
+                <input type="text" className='text-sm font-bold w-full h-full px-1 outline-none' placeholder='Add a task' ref={ InputRef }/>
                 <ButtonIcon Icon={<IoIosAddCircle/>} onClick={ ()=>{ setTask(InputRef.current.value) } }  />
             </div>
             <div className="flex flex-col justify-center items-center w-full h-screen">
@@ -41,10 +43,10 @@ export default function AddTask() {
                 </div>                 
             </div>
             { task ? <Task InputRef={InputRef} task= {task} setTask= { setTask } A_tasks={ A_tasks } setA_tasks={ setA_tasks }/> : null }
-        </div>
+        </div>  
+        </>
         
     );
-
 }
 const getData = async (currentUser) => {
     const getDb = await getDoc(doc(database, "userInfor", currentUser.uid));
@@ -55,7 +57,7 @@ const getData = async (currentUser) => {
 
 const ButtonIcon = ({ Icon, onClick }) => {    // need props onclick
     return (
-      <div onClick={onClick} className="flex items-center justify-center w-10 h-10 rounded-xl cursor-pointer bg-green-400 text-white ml-3
+      <div onClick={onClick} className="flex items-center justify-center text-4xl w-10 h-10 rounded-xl cursor-pointer bg-green-400 text-white ml-3
                   hover:bg-green-500 hover:text-gray-800
                   transition duration-300 ease-in-out">
           {Icon}

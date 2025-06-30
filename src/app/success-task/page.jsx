@@ -1,8 +1,10 @@
+"use client"
 import React, { useEffect, useState } from 'react'
 import Cookies from 'universal-cookie';
 import { doc, getDoc } from "firebase/firestore";
 import { database } from '../firebase-config';
 import { FaCheckCircle } from "react-icons/fa";
+import SideBar from '../components/SideBar';
 
 const cookies = new Cookies();
 const SuccessTask = () => {
@@ -18,13 +20,21 @@ const SuccessTask = () => {
   const currentUser = cookies.get("user-info");
   
   return (
-    <div className='flex-col w-full'>
+    <>
+
+    <SideBar></SideBar>
+    <div className='ml-24 min-h-screen min-w-screen bg-amber-50'>
+      <div className='flex-col w-full'>
         <div className='h-16'></div>
         <span className='mx-16 font-bold underline-offset-2 font-sans text-2xl lg:text-4xl text-black'>Your activity in 2025 </span>
         <div className='flex justify-center items-center my-10'>
           <TaskList successTasks={successTasks}></TaskList>
         </div>
     </div>
+    </div>
+    
+    </>
+    
   )
 }
 
@@ -42,7 +52,7 @@ const getSuccessedTask = async (currentUser) => {
 
 const TaskList = ({ successTasks }) =>{
   return (
-  <div className='flex-col w-5/6'>
+  <div className='flex-col w-5/6 font-bold'>
     {successTasks?.map((element, index) => {
       const timeObj = new Date(element.Deadline.seconds * 1000);
       const DayAndMonth = `${timeObj.getDate()}/${timeObj.getMonth() + 1}`;
