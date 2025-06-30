@@ -13,6 +13,9 @@ const nextConfig: NextConfig = {
     loaderFile: './ImageLoader.js'
   },
   reactStrictMode: false, // Tắt Strict Mode
+  env: {
+    TAILWIND_DISABLE_OXIDE: 'true'
+  },
 };
 
 export default nextConfig;
