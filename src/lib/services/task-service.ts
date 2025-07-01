@@ -28,8 +28,9 @@ export class TaskService {
     // Update user's total tasks created
     const user = await UserService.getUser(taskData.userId);
     if (user) {
+      const calcTotalTasks = user.totalTasksCreated ? user.totalTasksCreated+1 : 1;
       await UserService.updateUser(taskData.userId, {
-        totalTasksCreated: user.totalTasksCreated + 1,
+        totalTasksCreated: calcTotalTasks,
       });
     }
 
@@ -85,8 +86,9 @@ export class TaskService {
     // Update user stats and streak
     const user = await UserService.getUser(userId);
     if (user) {
+      const calcTotalTasks = user.totalTasksCompleted ? user.totalTasksCompleted+1 : 1;
       await UserService.updateUser(userId, {
-        totalTasksCompleted: user.totalTasksCompleted + 1,
+        totalTasksCompleted: calcTotalTasks,
       });
       await UserService.updateStreak(userId);
     }

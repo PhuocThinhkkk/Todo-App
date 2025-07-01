@@ -1,9 +1,9 @@
 import { doc, getDoc, setDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase';
-import { User } from '../types';
+import { User, UserInforRequired } from '../types';
 
 export class UserService {
-  static async createUser(userData: Omit<User, 'createdAt' | 'updatedAt'>): Promise<void> {
+  static async createUser(userData: Omit<UserInforRequired, 'createdAt' | 'updatedAt'>): Promise<void> {
     const userRef = doc(db, 'users', userData.uid);
     await setDoc(userRef, {
       ...userData,

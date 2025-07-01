@@ -2,11 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from "recharts";
 import { useAuthStore } from "@/lib/stores/auth-store";
 import { TaskService } from "@/lib/services/task-service";
 import { Task } from "@/lib/types";
-import { MainLayout } from "@/components/layout/main-layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { format, startOfMonth, endOfMonth, eachMonthOfInterval, subMonths } from "date-fns";
 
@@ -14,7 +13,7 @@ export default function AnalyticsPage() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { user } = useAuthStore();
-
+  
   useEffect(() => {
     const loadTasks = async () => {
       if (!user) return;
@@ -35,11 +34,11 @@ export default function AnalyticsPage() {
 
   if (isLoading) {
     return (
-      <MainLayout>
+      <>
         <div className="flex items-center justify-center h-64">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
         </div>
-      </MainLayout>
+      </>
     );
   }
 
@@ -87,13 +86,13 @@ export default function AnalyticsPage() {
   ];
 
   return (
-    <MainLayout>
+    <>
       <div className="space-y-8">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <h1 className="text-3xl font-bold text-gray-900">Analytics</h1>
+          <h1 className="text-3xl font-bold text-gray-900 text-center lg:text-left">Analytics</h1>
           <p className="text-gray-600 mt-1">
             Insights into your productivity and task management patterns
           </p>
@@ -144,7 +143,6 @@ export default function AnalyticsPage() {
                         cx="50%"
                         cy="50%"
                         labelLine={false}
-                        label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
                         outerRadius={80}
                         fill="#8884d8"
                         dataKey="value"
@@ -152,8 +150,10 @@ export default function AnalyticsPage() {
                         {priorityData.map((entry, index) => (
                           <Cell key={`cell-${index}`} fill={entry.color} />
                         ))}
+                      
                       </Pie>
                       <Tooltip />
+                      <Legend/>
                     </PieChart>
                   </ResponsiveContainer>
                 </div>
@@ -179,7 +179,7 @@ export default function AnalyticsPage() {
                         cx="50%"
                         cy="50%"
                         labelLine={false}
-                        label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                        
                         outerRadius={80}
                         fill="#8884d8"
                         dataKey="value"
@@ -189,6 +189,7 @@ export default function AnalyticsPage() {
                         ))}
                       </Pie>
                       <Tooltip />
+                      <Legend/>
                     </PieChart>
                   </ResponsiveContainer>
                 </div>
@@ -238,6 +239,6 @@ export default function AnalyticsPage() {
           </motion.div>
         </div>
       </div>
-    </MainLayout>
+    </>
   );
 }

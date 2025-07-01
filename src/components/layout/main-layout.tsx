@@ -9,11 +9,11 @@ import { UserService } from "@/lib/services/user-service";
 import { Sidebar } from "./sidebar";
 import { Toaster } from "react-hot-toast";
 
-interface MainLayoutProps {
+interface Props {
   children: React.ReactNode;
 }
 
-export function MainLayout({ children }: MainLayoutProps) {
+export function MainLayout({ children }: Props) {
   const router = useRouter();
   const { setUser, setLoading, isLoading } = useAuthStore();
 

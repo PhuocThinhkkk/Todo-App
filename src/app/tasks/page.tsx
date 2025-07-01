@@ -7,7 +7,6 @@ import { useAuthStore } from "@/lib/stores/auth-store";
 import { useTaskStore } from "@/lib/stores/task-store";
 import { TaskService } from "@/lib/services/task-service";
 import { Task } from "@/lib/types";
-import { MainLayout } from "@/components/layout/main-layout";
 import { TaskCard } from "@/components/tasks/task-card";
 import { TaskForm } from "@/components/tasks/task-form";
 import { Button } from "@/components/ui/button";
@@ -61,16 +60,14 @@ export default function TasksPage() {
 
   if (isLoading) {
     return (
-      <MainLayout>
         <div className="flex items-center justify-center h-64">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
         </div>
-      </MainLayout>
     );
   }
 
   return (
-    <MainLayout>
+    <>
       <div className="space-y-6">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -78,7 +75,7 @@ export default function TasksPage() {
           className="flex items-center justify-between"
         >
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">All Tasks</h1>
+            <h1 className="text-3xl font-bold text-gray-900 text-center lg:text-left">All Tasks</h1>
             <p className="text-gray-600 mt-1">
               Manage and organize your tasks
             </p>
@@ -180,6 +177,6 @@ export default function TasksPage() {
           }}
         />
       )}
-    </MainLayout>
+    </>
   );
 }

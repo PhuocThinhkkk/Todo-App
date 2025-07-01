@@ -6,7 +6,6 @@ import { CheckCircle } from "lucide-react";
 import { useAuthStore } from "@/lib/stores/auth-store";
 import { TaskService } from "@/lib/services/task-service";
 import { Task } from "@/lib/types";
-import { MainLayout } from "@/components/layout/main-layout";
 import { TaskCard } from "@/components/tasks/task-card";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -36,27 +35,30 @@ export default function CompletedTasksPage() {
 
   if (isLoading) {
     return (
-      <MainLayout>
+      <>
         <div className="flex items-center justify-center h-64">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
         </div>
-      </MainLayout>
+      </>
     );
   }
 
   return (
-    <MainLayout>
+    <>
       <div className="space-y-6">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex items-center gap-3"
+          className="flex items-center gap-3 justify-center lg:justify-start"
         >
-          <CheckCircle className="h-8 w-8 text-green-600" />
+         
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Completed Tasks</h1>
+            <h1 className="flex justify-center lg:justify-start gap-4 text-3xl font-bold text-gray-900 text-center lg:text-left"> 
+              <span>Completed Tasks</span>
+              <CheckCircle className="h-8 w-8 text-green-600" />
+            </h1>
             <p className="text-gray-600 mt-1">
-              Celebrate your achievements! You've completed {completedTasks.length} tasks.
+              Celebrate your achievements! Youve completed {completedTasks.length} tasks.
             </p>
           </div>
         </motion.div>
@@ -97,6 +99,6 @@ export default function CompletedTasksPage() {
           )}
         </motion.div>
       </div>
-    </MainLayout>
+    </>
   );
 }

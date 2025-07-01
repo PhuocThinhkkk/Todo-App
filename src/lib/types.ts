@@ -11,6 +11,13 @@ export interface User {
   totalTasksCompleted: number;
   totalTasksCreated: number;
 }
+export interface UserInforRequired {
+  uid: string;
+  email: string;
+  displayName: string;
+  photoURL: string;
+}
+
 
 export interface Task {
   id: string;
@@ -20,8 +27,8 @@ export interface Task {
   priority: 'low' | 'medium' | 'high';
   status: 'pending' | 'completed' | 'overdue';
   dueDate: Date;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
   completedAt?: Date;
   category?: string;
 }

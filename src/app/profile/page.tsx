@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { Calendar, CheckCircle, Award, TrendingUp, User as UserIcon } from "lucide-react";
 import { useAuthStore } from "@/lib/stores/auth-store";
-import { MainLayout } from "@/components/layout/main-layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/utils";
@@ -13,11 +12,11 @@ export default function ProfilePage() {
 
   if (!user) {
     return (
-      <MainLayout>
+      <>
         <div className="flex items-center justify-center h-64">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
         </div>
-      </MainLayout>
+      </>
     );
   }
 
@@ -43,7 +42,7 @@ export default function ProfilePage() {
   ];
 
   return (
-    <MainLayout>
+    <>
       <div className="space-y-8">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -182,6 +181,6 @@ export default function ProfilePage() {
           </Card>
         </motion.div>
       </div>
-    </MainLayout>
+    </>
   );
 }
