@@ -1,21 +1,28 @@
+"use client";
 
-"use client"; // Đây là client-side component
-import Cookies from "universal-cookie";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/lib/firebase";
 
-export default function Home() {
+export default function HomePage() {
   const router = useRouter();
-  const cookies = new Cookies();
-  const isSignedIn = !!cookies.get("auth-token");
 
   useEffect(() => {
-    if (!isSignedIn) {
-      router.push("/sign-in");
-    } else {
-      router.push("/user");
-    }
-  }, [isSignedIn, router]); // useEffect chỉ chạy khi component mount
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        router.push("/dashboard");
+      } else {
+        router.push("/auth/signin");
+      }
+    });
 
-  return <div>Loading...</div>;
+    return () => unsubscribe();
+  }, [router]);
+
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+    </div>
+  );
 }
