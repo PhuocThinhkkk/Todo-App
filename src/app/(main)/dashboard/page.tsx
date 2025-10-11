@@ -71,14 +71,12 @@ export default function AnalyticsPage() {
     };
   });
 
-  // Priority distribution
   const priorityData = [
     { name: 'High', value: tasks.filter(t => t.priority === 'high').length, color: '#ef4444' },
     { name: 'Medium', value: tasks.filter(t => t.priority === 'medium').length, color: '#f59e0b' },
     { name: 'Low', value: tasks.filter(t => t.priority === 'low').length, color: '#10b981' },
   ];
 
-  // Status distribution
   const statusData = [
     { name: 'Completed', value: tasks.filter(t => t.status === 'completed').length, color: '#10b981' },
     { name: 'Pending', value: tasks.filter(t => t.status === 'pending').length, color: '#3b82f6' },

@@ -21,11 +21,9 @@ export default function SignInPage() {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       
-      // Check if user exists in our database
       const existingUser = await UserService.getUser(user.uid);
       
       if (!existingUser) {
-        // Create new user
         await UserService.createUser({
           uid: user.uid,
           email: user.email || '',
