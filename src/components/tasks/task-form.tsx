@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Calendar, X } from "lucide-react";
+import { X } from "lucide-react";
 import { Task } from "@/lib/types";
 import { TaskService } from "@/lib/services/task-service";
 import { useTaskStore } from "@/lib/stores/task-store";
@@ -53,12 +53,10 @@ export function TaskForm({ task, onClose, onSuccess }: TaskFormProps) {
       };
 
       if (task) {
-        // Update existing task
         await TaskService.updateTask(task.id, taskData);
         updateTask(task.id, taskData);
         toast.success("Task updated successfully!");
       } else {
-        // Create new task
         const taskId = await TaskService.createTask(taskData);
         const newTask: Task = {
           id: taskId,

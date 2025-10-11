@@ -6,6 +6,7 @@ import { useAuthStore } from "@/lib/stores/auth-store";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/utils";
+import Image from "next/image";
 
 export default function ProfilePage() {
   const { user } = useAuthStore();
@@ -51,7 +52,7 @@ export default function ProfilePage() {
         >
           <div className="relative inline-block">
             {user.photoURL ? (
-              <img
+              <Image
                 src={user.photoURL}
                 alt={user.displayName}
                 className="w-24 h-24 rounded-full border-4 border-white shadow-lg"

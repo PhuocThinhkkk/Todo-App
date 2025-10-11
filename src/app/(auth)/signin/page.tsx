@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signInWithPopup } from "firebase/auth";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { auth, provider } from "@/lib/firebase";
 import { UserService } from "@/lib/services/user-service";
 import { Button } from "@/components/ui/button";

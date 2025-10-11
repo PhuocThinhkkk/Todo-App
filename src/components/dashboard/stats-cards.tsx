@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CheckCircle, Clock, AlertTriangle, TrendingUp } from "lucide-react";
+import { CheckCircle, Clock, AlertTriangle,} from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { DashboardStats } from "@/lib/types";
 
