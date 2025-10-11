@@ -25,6 +25,19 @@ interface TaskFormProps {
   onSuccess?: () => void;
 }
 
+/**
+ * Render a modal form for creating a new task or editing an existing one.
+ *
+ * The form includes fields for title, description, priority, due date, and category.
+ * It validates required fields, saves the task via TaskService (create or update),
+ * updates the task store, displays success or error toasts, invokes `onSuccess` on
+ * successful save, and calls `onClose` to dismiss the modal.
+ *
+ * @param task - Optional existing task to edit; when omitted the form creates a new task.
+ * @param onClose - Callback invoked to close the modal.
+ * @param onSuccess - Optional callback invoked after a successful create or update.
+ * @returns A JSX element containing the modal task form.
+ */
 export function TaskForm({ task, onClose, onSuccess }: TaskFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const { addTask, updateTask } = useTaskStore();

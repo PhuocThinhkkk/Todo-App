@@ -8,6 +8,13 @@ import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/utils";
 import Image from "next/image";
 
+/**
+ * Render the user's profile page showing avatar, member info, stats, and achievements, or a centered loading spinner when no user is available.
+ *
+ * Displays an avatar (Next.js Image or fallback icon) with a status indicator, a set of animated stat cards (tasks completed/created, current and longest streak), and an achievements grid that visually reflects earned status.
+ *
+ * @returns The JSX element for the profile page or a loading placeholder when no user is present.
+ */
 export default function ProfilePage() {
   const { user } = useAuthStore();
 
