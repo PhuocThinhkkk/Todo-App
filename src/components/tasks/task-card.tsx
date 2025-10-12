@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Calendar, Clock, Flag, MoreVertical, Check, Trash2, Edit } from "lucide-react";
+import { Calendar,Flag, Check, Trash2, Edit } from "lucide-react";
 import { Task } from "@/lib/types";
 import { formatRelativeDate, getPriorityColor, getStatusColor } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";

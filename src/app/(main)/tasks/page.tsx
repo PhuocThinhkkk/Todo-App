@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Plus, Filter, Search } from "lucide-react";
+import { Plus , Search } from "lucide-react";
 import { useAuthStore } from "@/lib/stores/auth-store";
 import { useTaskStore } from "@/lib/stores/task-store";
 import { TaskService } from "@/lib/services/task-service";
